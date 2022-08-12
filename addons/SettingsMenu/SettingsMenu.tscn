@@ -1,0 +1,454 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://addons/SettingsMenu/HTabContainer.gd" type="Script" id=1]
+[ext_resource path="res://addons/SettingsMenu/QuitButton.gd" type="Script" id=2]
+[ext_resource path="res://addons/SettingsMenu/SettingsOption.gd" type="Script" id=3]
+[ext_resource path="res://addons/SettingsMenu/SaveFolderButton.gd" type="Script" id=4]
+[ext_resource path="res://addons/SettingsMenu/blur_rect.gdshader" type="Shader" id=5]
+[ext_resource path="res://addons/SettingsMenu/fonts/Roboto/Roboto-Bold.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://addons/SettingsMenu/SettingTheme.tres" type="Theme" id=7]
+[ext_resource path="res://addons/SettingsMenu/InputManager.gd" type="Script" id=8]
+[ext_resource path="res://addons/SettingsMenu/SettingsMenu.gd" type="Script" id=9]
+[ext_resource path="res://addons/SettingsMenu/SettingsHandler.gd" type="Script" id=10]
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 5 )
+shader_param/blur_amount = 2.75
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 6 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+font_data = ExtResource( 6 )
+
+[node name="SettingsMenu" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 7 )
+script = ExtResource( 9 )
+
+[node name="InputManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource( 8 )
+
+[node name="SettingsHandler" type="Node" parent="."]
+script = ExtResource( 10 )
+
+[node name="BlurredBackground" type="ColorRect" parent="."]
+material = SubResource( 4 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+color = Color( 0, 0, 0, 0.843137 )
+
+[node name="HTabContainer" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -623.0
+margin_right = 623.0
+grow_horizontal = 2
+rect_min_size = Vector2( 1080, 0 )
+custom_constants/separation = 130
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TabButtons" type="VBoxContainer" parent="HTabContainer"]
+margin_right = 450.0
+margin_bottom = 1080.0
+theme = SubResource( 2 )
+alignment = 1
+
+[node name="Video" type="Button" parent="HTabContainer/TabButtons"]
+margin_left = 252.0
+margin_top = 230.0
+margin_right = 450.0
+margin_bottom = 338.0
+size_flags_horizontal = 8
+text = "Video"
+align = 2
+icon_align = 2
+
+[node name="Graphics" type="Button" parent="HTabContainer/TabButtons"]
+margin_left = 162.0
+margin_top = 358.0
+margin_right = 450.0
+margin_bottom = 466.0
+size_flags_horizontal = 8
+text = "Graphics"
+align = 2
+icon_align = 2
+
+[node name="Miscellaneous" type="Button" parent="HTabContainer/TabButtons"]
+margin_top = 486.0
+margin_right = 450.0
+margin_bottom = 594.0
+size_flags_horizontal = 8
+text = "Miscellaneous"
+align = 2
+icon_align = 2
+
+[node name="Audio" type="Button" parent="HTabContainer/TabButtons"]
+margin_left = 250.0
+margin_top = 614.0
+margin_right = 450.0
+margin_bottom = 722.0
+size_flags_horizontal = 8
+text = "Audio"
+align = 2
+icon_align = 2
+
+[node name="Game" type="Button" parent="HTabContainer/TabButtons"]
+margin_left = 250.0
+margin_top = 742.0
+margin_right = 450.0
+margin_bottom = 850.0
+size_flags_horizontal = 8
+text = "Game"
+align = 2
+icon_align = 2
+
+[node name="Tabs" type="Control" parent="HTabContainer"]
+margin_left = 580.0
+margin_right = 1246.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+
+[node name="Video" type="VBoxContainer" parent="HTabContainer/Tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="fullscreen" type="HBoxContainer" parent="HTabContainer/Tabs/Video"]
+margin_top = 479.0
+margin_right = 666.0
+margin_bottom = 537.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HTabContainer/Tabs/Video/fullscreen"]
+margin_top = 10.0
+margin_right = 538.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Fullscreen"
+
+[node name="OptionButton" type="OptionButton" parent="HTabContainer/Tabs/Video/fullscreen"]
+margin_left = 570.0
+margin_right = 666.0
+margin_bottom = 58.0
+text = "None"
+items = [ "None", null, false, 0, null, "Fullscreen", null, false, 1, null, "Borderless Windowed", null, false, 2, null ]
+selected = 0
+script = ExtResource( 3 )
+
+[node name="vsync" type="HBoxContainer" parent="HTabContainer/Tabs/Video"]
+margin_top = 557.0
+margin_right = 666.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HTabContainer/Tabs/Video/vsync"]
+margin_top = 2.0
+margin_right = 591.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Vsync"
+
+[node name="CheckBox" type="CheckBox" parent="HTabContainer/Tabs/Video/vsync"]
+margin_left = 623.0
+margin_right = 666.0
+margin_bottom = 43.0
+pressed = true
+script = ExtResource( 3 )
+
+[node name="Graphics" type="VBoxContainer" parent="HTabContainer/Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="msaa" type="HBoxContainer" parent="HTabContainer/Tabs/Graphics"]
+margin_top = 362.0
+margin_right = 666.0
+margin_bottom = 420.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HTabContainer/Tabs/Graphics/msaa"]
+margin_top = 10.0
+margin_right = 580.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Multisample Antialiasing"
+
+[node name="OptionButton" type="OptionButton" parent="HTabContainer/Tabs/Graphics/msaa"]
+margin_left = 612.0
+margin_right = 666.0
+margin_bottom = 58.0
+text = "4x"
+items = [ "None", null, false, 0, null, "2x", null, false, 1, null, "4x", null, false, 2, null, "8x", null, false, 3, null, "16x", null, false, 4, null ]
+selected = 2
+script = ExtResource( 3 )
+
+[node name="fxaa" type="HBoxContainer" parent="HTabContainer/Tabs/Graphics"]
+margin_top = 440.0
+margin_right = 666.0
+margin_bottom = 483.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HTabContainer/Tabs/Graphics/fxaa"]
+margin_top = 2.0
+margin_right = 591.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Fast Approximate Antialiasing"
+
+[node name="CheckBox" type="CheckBox" parent="HTabContainer/Tabs/Graphics/fxaa"]
+margin_left = 623.0
+margin_right = 666.0
+margin_bottom = 43.0
+script = ExtResource( 3 )
+
+[node name="bloom" type="HBoxContainer" parent="HTabContainer/Tabs/Graphics"]
+margin_top = 503.0
+margin_right = 666.0
+margin_bottom = 561.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HTabContainer/Tabs/Graphics/bloom"]
+margin_top = 10.0
+margin_right = 548.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Bloom"
+
+[node name="OptionButton" type="OptionButton" parent="HTabContainer/Tabs/Graphics/bloom"]
+margin_left = 580.0
+margin_right = 666.0
+margin_bottom = 58.0
+text = "High"
+items = [ "Off", null, false, 0, null, "Low", null, false, 1, null, "Medium", null, false, 2, null, "High", null, false, 3, null ]
+selected = 3
+script = ExtResource( 3 )
+
+[node name="shadow_quality" type="HBoxContainer" parent="HTabContainer/Tabs/Graphics"]
+margin_top = 581.0
+margin_right = 666.0
+margin_bottom = 639.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HTabContainer/Tabs/Graphics/shadow_quality"]
+margin_top = 10.0
+margin_right = 498.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Shadow Quality"
+
+[node name="OptionButton" type="OptionButton" parent="HTabContainer/Tabs/Graphics/shadow_quality"]
+margin_left = 530.0
+margin_right = 666.0
+margin_bottom = 58.0
+text = "Medium"
+items = [ "Off", null, false, 0, null, "Low", null, false, 1, null, "Medium", null, false, 2, null, "High", null, false, 3, null, "Ultra", null, false, 4, null ]
+selected = 2
+script = ExtResource( 3 )
+
+[node name="ssao" type="HBoxContainer" parent="HTabContainer/Tabs/Graphics"]
+margin_top = 659.0
+margin_right = 666.0
+margin_bottom = 717.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HTabContainer/Tabs/Graphics/ssao"]
+margin_top = 10.0
+margin_right = 570.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Ambient Occlusion"
+
+[node name="OptionButton" type="OptionButton" parent="HTabContainer/Tabs/Graphics/ssao"]
+margin_left = 602.0
+margin_right = 666.0
+margin_bottom = 58.0
+text = "Off"
+items = [ "Off", null, false, 0, null, "Low", null, false, 1, null, "Medium", null, false, 2, null, "High", null, false, 3, null ]
+selected = 0
+script = ExtResource( 3 )
+
+[node name="Miscellaneous" type="VBoxContainer" parent="HTabContainer/Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="text_speed" type="HBoxContainer" parent="HTabContainer/Tabs/Miscellaneous"]
+margin_top = 479.0
+margin_right = 666.0
+margin_bottom = 537.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HTabContainer/Tabs/Miscellaneous/text_speed"]
+margin_top = 10.0
+margin_right = 546.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Text Speed"
+
+[node name="OptionButton" type="OptionButton" parent="HTabContainer/Tabs/Miscellaneous/text_speed"]
+margin_left = 578.0
+margin_right = 666.0
+margin_bottom = 58.0
+text = "Slow"
+items = [ "Slow", null, false, 0, null, "Normal", null, false, 1, null, "Fast", null, false, 2, null, "Instant", null, false, 3, null ]
+selected = 0
+script = ExtResource( 3 )
+
+[node name="fps_counter" type="HBoxContainer" parent="HTabContainer/Tabs/Miscellaneous"]
+margin_top = 557.0
+margin_right = 666.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HTabContainer/Tabs/Miscellaneous/fps_counter"]
+margin_top = 2.0
+margin_right = 591.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "FPS Counter"
+
+[node name="CheckBox" type="CheckBox" parent="HTabContainer/Tabs/Miscellaneous/fps_counter"]
+margin_left = 623.0
+margin_right = 666.0
+margin_bottom = 43.0
+script = ExtResource( 3 )
+
+[node name="Audio" type="VBoxContainer" parent="HTabContainer/Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="volume_mute" type="HBoxContainer" parent="HTabContainer/Tabs/Audio"]
+margin_top = 460.0
+margin_right = 666.0
+margin_bottom = 503.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HTabContainer/Tabs/Audio/volume_mute"]
+margin_top = 2.0
+margin_right = 591.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Mute"
+
+[node name="CheckBox" type="CheckBox" parent="HTabContainer/Tabs/Audio/volume_mute"]
+margin_left = 623.0
+margin_right = 666.0
+margin_bottom = 43.0
+script = ExtResource( 3 )
+
+[node name="volume_main" type="HBoxContainer" parent="HTabContainer/Tabs/Audio"]
+margin_top = 523.0
+margin_right = 666.0
+margin_bottom = 561.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HTabContainer/Tabs/Audio/volume_main"]
+margin_right = 317.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Main Volume"
+
+[node name="HSlider" type="HSlider" parent="HTabContainer/Tabs/Audio/volume_main"]
+margin_left = 349.0
+margin_right = 666.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.1
+value = 1.0
+script = ExtResource( 3 )
+
+[node name="volume_sfx" type="HBoxContainer" parent="HTabContainer/Tabs/Audio"]
+margin_top = 581.0
+margin_right = 666.0
+margin_bottom = 619.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HTabContainer/Tabs/Audio/volume_sfx"]
+margin_right = 317.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Sound Effect Volume"
+
+[node name="HSlider" type="HSlider" parent="HTabContainer/Tabs/Audio/volume_sfx"]
+margin_left = 349.0
+margin_right = 666.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.1
+value = 0.7
+script = ExtResource( 3 )
+
+[node name="Game" type="VBoxContainer" parent="HTabContainer/Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="open_save_folder" type="HBoxContainer" parent="HTabContainer/Tabs/Game"]
+margin_top = 460.0
+margin_right = 802.0
+margin_bottom = 530.0
+size_flags_horizontal = 3
+
+[node name="node" type="Node" parent="HTabContainer/Tabs/Game/open_save_folder"]
+
+[node name="Button" type="Button" parent="HTabContainer/Tabs/Game/open_save_folder"]
+margin_right = 280.0
+margin_bottom = 70.0
+custom_fonts/font = SubResource( 5 )
+text = "Open Game Data Folder"
+script = ExtResource( 4 )
+
+[node name="quit_game" type="HBoxContainer" parent="HTabContainer/Tabs/Game"]
+margin_top = 550.0
+margin_right = 802.0
+margin_bottom = 620.0
+size_flags_horizontal = 3
+
+[node name="node" type="Node" parent="HTabContainer/Tabs/Game/quit_game"]
+
+[node name="Button" type="Button" parent="HTabContainer/Tabs/Game/quit_game"]
+margin_right = 183.0
+margin_bottom = 70.0
+custom_fonts/font = SubResource( 5 )
+text = "Quit Game"
+script = ExtResource( 2 )
