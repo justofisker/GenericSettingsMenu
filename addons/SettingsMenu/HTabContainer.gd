@@ -50,9 +50,7 @@ func set_tab_index(value:int):
 	last_tween = tween
 	tab_index = value
 
-	
-	for section in tab_buttons: # Todo remove
-		section.focus_neighbour_right = tabs[tab_index].get_child(0).get_child(1).get_path()
+	tab_buttons[value].focus_neighbour_right = tabs[value].get_child(0).get_child(1).get_path()
 
 var menu_buttons:Array = []
 
@@ -62,7 +60,7 @@ func _input(event):
 		if get_focus_owner() == null || get_focus_owner().get_script() != null:
 			tab_buttons[tab_index].call_deferred("grab_focus")
 	if event.is_action("ui_accept"):
-		if get_focus_owner() != null && get_focus_owner().get_parent() == $Section:
+		if get_focus_owner() != null && get_focus_owner().get_parent() == $TabButtons:
 			get_node(get_focus_owner().focus_neighbour_right).call_deferred("grab_focus")
 
 var last_focused:Control = null

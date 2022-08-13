@@ -62,7 +62,6 @@ func on_checkbox_settings_value_changed(changed_section:String, changed_key:Stri
 		set("pressed", value)
 		set_block_signals(false)
 
-
 func on_checkbox_entered_focus():
 	set("custom_icons/checked", preload("res://addons/SettingsMenu/buttons/checkbox_focus_checked.svg"))
 	set("custom_icons/unchecked", preload("res://addons/SettingsMenu/buttons/checkbox_focus_unchecked.svg"))
