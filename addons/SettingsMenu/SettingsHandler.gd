@@ -112,7 +112,7 @@ var old_maximized:bool
 
 # Graphics/shadow_quality
 
-func toggle_lights(enabled:bool): # this shouldn't be here
+func toggle_lights(enabled:bool):
 	for light in get_tree().get_nodes_in_group("Light"):
 		if light is DirectionalLight:
 			light.shadow_enabled = enabled
